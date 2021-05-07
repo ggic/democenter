@@ -38,9 +38,7 @@ spring:
           key-generator:
             column: user_id
             type: SNOWFLAKE
-#          actual-data-nodes: dcorder-00.t_order_000$->{0..3},dcorder-01.t_order_000$->{4..7},dcorder-02.t_order_000$->{8..9},dcorder-02.t_order_00$->{10..11},dcorder-03.t_order_00$->{12..15}
           actual-data-nodes: dcorder-00.t_order_000$->{0..3},dcorder-01.t_order_000$->{4..7},dcorder-02.t_order_$->{(8..11).collect{t -> t.toString().padLeft(4,'0')}},dcorder-03.t_order_00$->{12..15}
-
           database-strategy:
             inline:
               sharding-column: user_id
@@ -49,12 +47,9 @@ spring:
             inline:
               shardingColumn: user_id
               algorithm-expression: t_order_$->{(user_id % 15).toString().padLeft(4,'0')}
-#          keyGeneratorColumnName: user_id
-#          defaultKeyGeneratorClassName: io.shardingsphere.core.keygen.DefaultKeyGenerator
-
 mybatis:
   # model的包
   type-aliases-package:  com.snoweagle.dc.shadingjdbc.infra.dal.dataObject
-  mapperLocations: classpath:dal/mapper/*.xml,classpath:dal/mapperExt/*.xml
+  mapperLocations: classpath:dal/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true

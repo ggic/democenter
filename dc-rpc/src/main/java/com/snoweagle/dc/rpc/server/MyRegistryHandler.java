@@ -3,6 +3,7 @@ package com.snoweagle.dc.rpc.server;
 import com.snoweagle.dc.rpc.common.InvokerMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -11,12 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * 类的实现描述：TODO 类实现描述
- *
- * @Author: snoweagle
- * @Date: 2021/4/24 11:10 PM
- */
+
+@Slf4j
 public class MyRegistryHandler extends ChannelInboundHandlerAdapter {
     // 在注册中心注册服务需要有容器存放
     public static ConcurrentHashMap<String, Object> registryMap = new ConcurrentHashMap<>();
@@ -24,8 +21,6 @@ public class MyRegistryHandler extends ChannelInboundHandlerAdapter {
     // 类名的缓存位置
     private static final List<String> classCache = new ArrayList<>();
 
-    // 约定，只要是写在provider下所有的类都认为是一个可以对完提供服务的实现类
-    // edu.xpu.rpc.provider
 
     public MyRegistryHandler() {
         scanClass("com.snoweagle.dc.rpc.api");
@@ -43,9 +38,9 @@ public class MyRegistryHandler extends ChannelInboundHandlerAdapter {
             // 获取服务对象
             Object clazz = registryMap.get(serverClassName);
             Method method = clazz.getClass().getMethod(request.getMethodName(), request.getParams());
+            log.info("request:{}" , request);
             result = method.invoke(clazz, request.getValues());
-            System.out.println("request=" + request);
-            System.out.println("result=" + result);
+            log.info("result: {}",result);
         }
         ctx.writeAndFlush(result);
         ctx.close();

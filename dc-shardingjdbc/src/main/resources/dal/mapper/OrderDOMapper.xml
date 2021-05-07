@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snoweagle.dc.shadingjdbc.infra.dal.mapper.OrderDOMapper">
+  <resultMap id="BaseResultMap" type="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="CHAR" property="isDeleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, order_no, service_name, creator, modifier, gmt_created, gmt_modified, 
+    is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
+    insert into t_order (id, user_id, order_no, 
+      service_name, creator, modifier, 
+      gmt_created, gmt_modified, is_deleted
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, 
+      #{serviceName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, 
+      #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null">
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
+    update t_order
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
+    update t_order
+    set user_id = #{userId,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    insert into t_order
+    (id,user_id,order_no,service_name,creator,modifier,gmt_created,gmt_modified,is_deleted)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT},#{item.userId,jdbcType=BIGINT},#{item.orderNo,jdbcType=VARCHAR},#{item.serviceName,jdbcType=VARCHAR},#{item.creator,jdbcType=VARCHAR},#{item.modifier,jdbcType=VARCHAR},#{item.gmtCreated,jdbcType=TIMESTAMP},#{item.gmtModified,jdbcType=TIMESTAMP},#{item.isDeleted,jdbcType=CHAR})
+    </foreach>
+  </insert>
+  <select id="selectByCondition" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order where 1=1 
+    <if test="id != null">
+      and id = #{id,jdbcType=BIGINT}
+    </if>
+    <if test="userId != null">
+      and user_id = #{userId,jdbcType=BIGINT}
+    </if>
+    <if test="orderNo != null">
+      and order_no = #{orderNo,jdbcType=VARCHAR}
+    </if>
+    <if test="serviceName != null">
+      and service_name = #{serviceName,jdbcType=VARCHAR}
+    </if>
+    <if test="creator != null">
+      and creator = #{creator,jdbcType=VARCHAR}
+    </if>
+    <if test="modifier != null">
+      and modifier = #{modifier,jdbcType=VARCHAR}
+    </if>
+    <if test="gmtCreated != null">
+      and gmt_created = #{gmtCreated,jdbcType=TIMESTAMP}
+    </if>
+    <if test="gmtModified != null">
+      and gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    </if>
+    <if test="isDeleted != null">
+      and is_deleted = #{isDeleted,jdbcType=CHAR}
+    </if>
+  </select>
+</mapper>

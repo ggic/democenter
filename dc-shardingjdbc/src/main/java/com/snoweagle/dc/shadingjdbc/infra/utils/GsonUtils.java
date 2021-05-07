@@ -16,22 +16,15 @@ import java.util.Map;
 public class GsonUtils {
     public static final String TAG = GsonUtils.class.getSimpleName();
 
-    // 无参的私有构造方法
     private GsonUtils() {
 
     }
 
-    // 不用创建对象,直接使用 gson. 就可以调用方法
     private static Gson gson = null;
 
-    /**
-     * 默认的时间格式化
-     */
+
     private static final String DATE_FORMAT_DEFAULT = "yyyy-MM-dd HH:mm:ss";
 
-    /**
-     * 判断gson对象是否存在了,不存在则创建对象
-     */
     static {
         if (gson == null) {
             gson = buildGson();
@@ -67,19 +60,11 @@ public class GsonUtils {
         return jsonString;
     }
 
-    /**
-     * 将 json 转成特定的 cls 的对象
-     * Json To Bean
-     *
-     * @param jsonString
-     * @param cls
-     * @return
-     */
+
     public static <T> T JsonToBean(String jsonString, Class cls) {
         T t = null;
         try {
             if (gson != null) {
-                // 传入json对象和对象类型,将json转成对象
                 t = (T) gson.fromJson(jsonString, cls);
             }
         } catch (Exception e) {
@@ -115,13 +100,7 @@ public class GsonUtils {
         return list;
     }
 
-    /**
-     * json 字符串转成 list map
-     * Json To List<Map<String,T>>
-     *
-     * @param jsonString
-     * @return
-     */
+
     public static <T> List<Map<String, T>> JsonToListMaps(String jsonString) {
         List<Map<String, T>> list = null;
         try {

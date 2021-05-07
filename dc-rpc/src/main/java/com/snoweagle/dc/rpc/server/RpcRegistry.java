@@ -16,7 +16,6 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 类的实现描述：TODO 类实现描述
  *
  * @Author: snoweagle
  * @Date: 2021/4/24 11:05 PM
@@ -52,7 +51,7 @@ public class RpcRegistry {
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // 设置长连接
 
             ChannelFuture channelFuture = serverBootstrap.bind(this.port).sync();
-            System.out.println("RPC Registry start listen at " + this.port);
+            log.info("RPC Serve start listen at {} " , this.port);
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e){
             e.printStackTrace();
