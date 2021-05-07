@@ -14,6 +14,6 @@ import java.io.Serializable;
 public class InvokerMessage implements Serializable {
     private String className; // 服务名称
     private String methodName; // 调用哪个方法
-    private Class<?>[] params; // 参数列表
+    private Class<?>[] params; // 参数列
     private Object[] values; // 参数值
 }
