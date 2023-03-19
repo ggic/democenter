@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.snoweagle.dc.shadingjdbc.infra.dal.mapper.OrderDOMapper">
-  <resultMap id="BaseResultMap" type="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
+<mapper namespace="com.snoweagle.dc.shadingjdbc.infra.dal.mapper.UserDOMapper">
+  <resultMap id="BaseResultMap" type="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.UserDO">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="user_no" jdbcType="VARCHAR" property="userNo" />
     <result column="comments" jdbcType="VARCHAR" property="comments" />
     <result column="is_deleted" jdbcType="CHAR" property="isDeleted" />
@@ -13,36 +12,31 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, order_no, user_no, comments, is_deleted, creator, gmt_created, modifier, gmt_modified
+    id, user_no, comments, is_deleted, creator, gmt_created, modifier, gmt_modified
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from trade_order
+    from trade_user_0
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from trade_order_0
+    delete from trade_user_0
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
-    insert into trade_order_0 (id, order_no, user_no, 
-      comments, is_deleted, creator, 
-      gmt_created, modifier, gmt_modified
-      )
-    values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
-      #{comments,jdbcType=VARCHAR}, #{isDeleted,jdbcType=CHAR}, #{creator,jdbcType=VARCHAR}, 
-      #{gmtCreated,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.UserDO">
+    insert into trade_user_0 (id, user_no, comments, 
+      is_deleted, creator, gmt_created, 
+      modifier, gmt_modified)
+    values (#{id,jdbcType=BIGINT}, #{userNo,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=CHAR}, #{creator,jdbcType=VARCHAR}, #{gmtCreated,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
-    insert into trade_order
+  <insert id="insertSelective" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.UserDO">
+    insert into trade_user_0
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
-      </if>
-      <if test="orderNo != null">
-        order_no,
       </if>
       <if test="userNo != null">
         user_no,
@@ -70,9 +64,6 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="orderNo != null">
-        #{orderNo,jdbcType=VARCHAR},
-      </if>
       <if test="userNo != null">
         #{userNo,jdbcType=VARCHAR},
       </if>
@@ -96,12 +87,9 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
-    update trade_order
+  <update id="updateByPrimaryKeySelective" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.UserDO">
+    update trade_user_0
     <set>
-      <if test="orderNo != null">
-        order_no = #{orderNo,jdbcType=VARCHAR},
-      </if>
       <if test="userNo != null">
         user_no = #{userNo,jdbcType=VARCHAR},
       </if>
@@ -126,10 +114,9 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO">
-    update trade_order
-    set order_no = #{orderNo,jdbcType=VARCHAR},
-      user_no = #{userNo,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.UserDO">
+    update trade_user_0
+    set user_no = #{userNo,jdbcType=VARCHAR},
       comments = #{comments,jdbcType=VARCHAR},
       is_deleted = #{isDeleted,jdbcType=CHAR},
       creator = #{creator,jdbcType=VARCHAR},
@@ -138,37 +125,4 @@
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
-
-  <select id="selectByCondition" parameterType="com.snoweagle.dc.shadingjdbc.infra.dal.dataObject.OrderDO" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from trade_order where 1=1
-    <if test="id != null">
-      and id = #{id,jdbcType=BIGINT}
-    </if>
-    <if test="userNo != null">
-      and user_No = #{userNo,jdbcType=BIGINT}
-    </if>
-    <if test="orderNo != null">
-      and order_no = #{orderNo,jdbcType=VARCHAR}
-    </if>
-    <if test="comments != null">
-      and comments = #{comments,jdbcType=VARCHAR}
-    </if>
-    <if test="creator != null">
-      and creator = #{creator,jdbcType=VARCHAR}
-    </if>
-    <if test="modifier != null">
-      and modifier = #{modifier,jdbcType=VARCHAR}
-    </if>
-    <if test="gmtCreated != null">
-      and gmt_created = #{gmtCreated,jdbcType=TIMESTAMP}
-    </if>
-    <if test="gmtModified != null">
-      and gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
-    </if>
-    <if test="isDeleted != null">
-      and is_deleted = #{isDeleted,jdbcType=CHAR}
-    </if>
-  </select>
 </mapper>

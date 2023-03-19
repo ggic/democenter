@@ -1,14 +1,10 @@
 package com.snoweagle.dc.shadingjdbc.infra.dal.dataObject;
 
-
 import com.snoweagle.dc.shadingjdbc.infra.common.BaseDO;
-
 import java.util.Date;
 
-public class OrderDO extends BaseDO {
+public class UserDO extends BaseDO {
     private Long id;
-
-    private String orderNo;
 
     private String userNo;
 
@@ -30,14 +26,6 @@ public class OrderDO extends BaseDO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo == null ? null : orderNo.trim();
     }
 
     public String getUserNo() {
