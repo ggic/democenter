@@ -4,12 +4,13 @@ import lombok.Data;
 
 @Data
 public class MessageBody {
-
-    private Long userId;
-
-    private String topic;
     //消息体
     private byte[] data;
+
+    //user id
+    private Long userId;
+    //topic
+    private String topic;
 
     private Integer dataLength;
 }

@@ -18,9 +18,6 @@ import java.lang.reflect.Type;
 @Slf4j
 public class NettyDecoder extends LengthFieldBasedFrameDecoder {
     private static  final ObjectMapper objectMapper = new ObjectMapper();
-    private static final int VERSION_LENGTH = 4;
-    private static final int HEADER_LENGTH = 4;
-    private static final int BODY_LENGTH = 4;
 
     /**
      * [ lengthFieldLength ][message]
@@ -39,20 +36,24 @@ public class NettyDecoder extends LengthFieldBasedFrameDecoder {
         System.out.println("byteBuf的可读容量为：" + in.readableBytes());
         System.out.println("byteBuf的可写容量为：" + in.writableBytes());
 
-        String version = in.readBytes(VERSION_LENGTH).toString(CharsetUtil.UTF_8);
-//        log.info("message version ->{}", version);
-//
-//        if(!version.startsWith("nv")){
-//            log.error("version is illegal");
-//            return null;
-//        }
-        int msgSize = in.readInt();
-        log.info("message size ->{}", msgSize);
+        if(in.readableBytes() > 4){
+            in.markReaderIndex();
 
-        byte[] data = new byte[msgSize];
-//        in.readableBytes();
-        in.readBytes(data);
-        Message<BizMessage> message = objectMapper.readValue(data, new TypeReference<Message<BizMessage>>() {});
-        return message;
+            int length = in.readInt();
+            log.info("message length ->{}", length);
+
+            int readableBytes = in.readableBytes();
+            if(readableBytes < length){
+                log.warn("Not all messages were received-->{}" , readableBytes);
+                in.resetReaderIndex();
+                return null;
+            }
+
+            byte[] data = new byte[length];
+            in.readBytes(data);
+            Message<BizMessage> message = objectMapper.readValue(data, new TypeReference<Message<BizMessage>>() {});
+            return message;
+        }
+        return  null;
     }
 }

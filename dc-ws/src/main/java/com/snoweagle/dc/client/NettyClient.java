@@ -124,6 +124,8 @@ public class NettyClient implements Runnable {
                     client.getChannel().writeAndFlush(message);
 
                     TimeUnit.SECONDS.sleep(1);
+                    break;
+
                 }
             }
         } catch (InterruptedException e) {
