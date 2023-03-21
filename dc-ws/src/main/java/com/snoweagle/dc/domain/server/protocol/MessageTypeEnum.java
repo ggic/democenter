@@ -1,4 +1,4 @@
-package com.snoweagle.dc.server.protocol;
+package com.snoweagle.dc.domain.server.protocol;
 
 /**
  *

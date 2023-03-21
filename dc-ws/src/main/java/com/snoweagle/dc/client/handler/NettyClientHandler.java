@@ -1,6 +1,5 @@
 package com.snoweagle.dc.client.handler;
 
-import com.snoweagle.dc.server.protocol.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCountUtil;

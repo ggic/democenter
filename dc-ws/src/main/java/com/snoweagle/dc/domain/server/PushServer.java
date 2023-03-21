@@ -1,8 +1,9 @@
-package com.snoweagle.dc.server;
+package com.snoweagle.dc.domain.server;
 
-import com.snoweagle.dc.server.handler.ServerHandler;
-import com.snoweagle.dc.server.serializer.NettyDecoder;
-import com.snoweagle.dc.server.serializer.NettyEncoder;
+import com.snoweagle.dc.domain.server.handler.ServerHandler;
+import com.snoweagle.dc.domain.server.serializer.NettyEncoder;
+import com.snoweagle.dc.domain.server.serializer.NettyDecoder;
+import com.snoweagle.dc.domain.common.ServerConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
@@ -13,13 +14,17 @@ import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class NettyServer implements Server {
+public class PushServer implements Server {
 
+    private ServerConfig config;
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
     private ChannelFuture channelFuture;
     private ServerBootstrap serverBootstrap;
 
+    public PushServer(ServerConfig config){
+        this.config = config;
+    }
     public void init() {
         bossGroup = new NioEventLoopGroup(0,new DefaultThreadFactory("ReceiveBoss", Thread.MAX_PRIORITY));
         workerGroup = new NioEventLoopGroup(0,new DefaultThreadFactory("ReceiveWorker", Thread.MAX_PRIORITY));
@@ -53,7 +58,7 @@ public class NettyServer implements Server {
     public void start() {
         init();
         try {
-            channelFuture = serverBootstrap.bind(9901).sync();
+            channelFuture = serverBootstrap.bind(config.getPort()).sync();
         } catch (Exception e) {
             log.error(e.getMessage(),e);
         }
@@ -61,14 +66,13 @@ public class NettyServer implements Server {
 
     @Override
     public void stop() {
-        log.info("push receive server is stopping");
-
+        log.info("push server is stopping");
         bossGroup.shutdownGracefully();
         workerGroup.shutdownGracefully();
         if (channelFuture.channel() != null) {
             channelFuture.channel().close();
         }
-        log.info("push receive server stop");
+        log.info("push server stop");
     }
 
     @Override
@@ -76,10 +80,4 @@ public class NettyServer implements Server {
 
     }
 
-    class ShutdownThread extends Thread {
-        @Override
-        public void run() {
-            NettyServer.this.stop();
-        }
-    }
 }

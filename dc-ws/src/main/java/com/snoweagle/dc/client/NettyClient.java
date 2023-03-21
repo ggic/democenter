@@ -1,14 +1,13 @@
 package com.snoweagle.dc.client;
 
 import com.snoweagle.dc.client.handler.NettyClientHandler;
-import com.snoweagle.dc.server.messages.BizMessage;
-import com.snoweagle.dc.server.protocol.Message;
-import com.snoweagle.dc.server.protocol.MessageBody;
-import com.snoweagle.dc.server.protocol.MessageHead;
-import com.snoweagle.dc.server.protocol.MessageTypeEnum;
-import com.snoweagle.dc.server.serializer.NettyDecoder;
-import com.snoweagle.dc.server.serializer.NettyEncoder;
-import com.snoweagle.dc.tools.JacksonUtil;
+import com.snoweagle.dc.domain.server.messages.BizMessage;
+import com.snoweagle.dc.domain.server.protocol.Message;
+import com.snoweagle.dc.domain.server.protocol.MessageBody;
+import com.snoweagle.dc.domain.server.protocol.MessageHead;
+import com.snoweagle.dc.domain.server.protocol.MessageTypeEnum;
+import com.snoweagle.dc.domain.server.serializer.NettyDecoder;
+import com.snoweagle.dc.domain.server.serializer.NettyEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;

@@ -1,19 +1,14 @@
-package com.snoweagle.dc.server.serializer;
+package com.snoweagle.dc.domain.server.serializer;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snoweagle.dc.server.messages.BizMessage;
-import com.snoweagle.dc.server.protocol.Message;
-import com.snoweagle.dc.server.protocol.MessageBody;
-import com.snoweagle.dc.server.protocol.MessageHead;
+import com.snoweagle.dc.domain.server.messages.BizMessage;
+import com.snoweagle.dc.domain.server.protocol.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
-
-import java.lang.reflect.Type;
 
 @Slf4j
 public class NettyDecoder extends LengthFieldBasedFrameDecoder {

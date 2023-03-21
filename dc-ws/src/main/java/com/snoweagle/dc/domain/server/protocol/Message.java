@@ -1,6 +1,5 @@
-package com.snoweagle.dc.server.protocol;
+package com.snoweagle.dc.domain.server.protocol;
 
-import com.snoweagle.dc.server.messages.BizMessage;
 import lombok.Data;
 
 import java.util.UUID;

@@ -1,7 +1,7 @@
-package com.snoweagle.dc.server.serializer;
+package com.snoweagle.dc.domain.server.serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snoweagle.dc.server.protocol.Message;
+import com.snoweagle.dc.domain.server.protocol.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;

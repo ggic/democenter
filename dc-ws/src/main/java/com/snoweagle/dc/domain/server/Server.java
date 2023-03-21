@@ -1,4 +1,4 @@
-package com.snoweagle.dc.server;
+package com.snoweagle.dc.domain.server;
 
 public interface Server {
     void start();

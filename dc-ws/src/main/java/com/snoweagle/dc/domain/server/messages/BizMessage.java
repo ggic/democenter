@@ -1,7 +1,7 @@
-package com.snoweagle.dc.server.messages;
+package com.snoweagle.dc.domain.server.messages;
 
-import com.snoweagle.dc.server.protocol.MessageBody;
-import com.snoweagle.dc.server.protocol.MessageHead;
+import com.snoweagle.dc.domain.server.protocol.MessageBody;
+import com.snoweagle.dc.domain.server.protocol.MessageHead;
 import lombok.Data;
 
 import java.util.UUID;
