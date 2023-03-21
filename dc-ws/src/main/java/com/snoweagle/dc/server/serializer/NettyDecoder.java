@@ -32,9 +32,6 @@ public class NettyDecoder extends LengthFieldBasedFrameDecoder {
             log.error("in stream is null");
             return null;
         }
-        System.out.println("byteBuf的容量为：" + in.capacity());
-        System.out.println("byteBuf的可读容量为：" + in.readableBytes());
-        System.out.println("byteBuf的可写容量为：" + in.writableBytes());
 
         if(in.readableBytes() > 4){
             in.markReaderIndex();

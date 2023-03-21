@@ -20,13 +20,11 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
             if(msg.getType().equals(MessageTypeEnum.MESSAGE.name())){
                 BizMessage message = (BizMessage) msg.getMessage();
 
-
                 MessageBody body = message.getBody();
                 log.info("解析body:{}", new String(body.getData()));
                 Message response  = new Message();
                 response.setType(MessageTypeEnum.SERVER_ACK.name());
                 context.channel().writeAndFlush(response);
         }
-
     }
 }
